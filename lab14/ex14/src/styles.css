@@ -1,0 +1,24 @@
+div {
+    font-family: Arial, sans-serif;
+  }
+  
+  form {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 400px;
+    margin: auto;
+    background-color: #f9f9f9;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+  }
