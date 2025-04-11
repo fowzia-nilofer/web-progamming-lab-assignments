@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<head>
+    <title>23BCE5127_Analog Clock with Canvas</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h2>Analog Clock</h2>
+    <canvas id="clockCanvas" width="300" height="300"></canvas>
+
+    <script>
+        const canvas = document.getElementById("clockCanvas");
+        const ctx = canvas.getContext("2d");
+        const clockRadius = canvas.width / 2;
+        
+        function drawClock() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw clock face
+            ctx.beginPath();
+            ctx.arc(clockRadius, clockRadius, clockRadius - 5, 0, 2 * Math.PI);
+            ctx.fillStyle = "#e8f8f5"; 
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#000";
+            ctx.stroke();
+            ctx.closePath();
+
+            // Draw hour markings
+            ctx.font = "18px Arial";
+            ctx.fillStyle = "black";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            for (let i = 1; i <= 12; i++) {
+                let angle = (i * 30) * (Math.PI / 180); // Convert degrees to radians
+                let x = clockRadius + Math.cos(angle - Math.PI / 2) * (clockRadius - 30);
+                let y = clockRadius + Math.sin(angle - Math.PI / 2) * (clockRadius - 30);
+                ctx.fillText(i, x, y);
+            }
+            //The below code will only print 3,6,9,12 in the clock face
+            // for (let i = 1; i <= 4; i++) {
+            //     let angle = (i * 90) * (Math.PI / 180); // Convert degrees to radians
+            //     let x = clockRadius + Math.cos(angle - Math.PI / 2) * (clockRadius - 30);
+            //     let y = clockRadius + Math.sin(angle - Math.PI / 2) * (clockRadius - 30);
+            //     ctx.fillText(i*3, x, y);
+            // }
+
+            drawHands();
+        }
+
+        function drawHands() {
+            let now = new Date();
+            let hours = now.getHours() % 12;
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+
+            // Convert time into angles
+            let hourAngle = (hours * 30 + minutes * 0.5) * (Math.PI / 180);
+            let minuteAngle = (minutes * 6) * (Math.PI / 180);
+            let secondAngle = (seconds * 6) * (Math.PI / 180);
+
+            // Draw hour hand
+            drawHand(hourAngle, clockRadius * 0.5, 6, "#000");
+
+            // Draw minute hand
+            drawHand(minuteAngle, clockRadius * 0.7, 4, "#000");
+
+            // Draw second hand
+            drawHand(secondAngle, clockRadius * 0.8, 2, "red");
+
+            // Draw center pivot
+            ctx.beginPath();
+            ctx.arc(clockRadius, clockRadius, 5, 0, 2 * Math.PI);
+            ctx.fillStyle = "black";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function drawHand(angle, length, width, color) {
+            ctx.beginPath();
+            ctx.lineWidth = width;
+            ctx.lineCap = "round";
+            ctx.strokeStyle = color;
+
+            let x = clockRadius + Math.cos(angle - Math.PI / 2) * length;
+            let y = clockRadius + Math.sin(angle - Math.PI / 2) * length;
+
+            ctx.moveTo(clockRadius, clockRadius);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        function updateClock() {
+            drawClock();
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call to draw clock
+    </script>
+</body>
+</html>

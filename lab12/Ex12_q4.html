@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <title>Ex12_q4_23BCE5127</title> 
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+    </head> 
+    <body> 
+        <label for="chartType">Select Chart Type:</label> 
+        <select id="chartType"> 
+            <option value="bar">Bar chart</option> 
+            <option value="line">Line chart</option> 
+            <option value="pie">Pie chart</option> 
+            <option value="donut">Donut chart</option> 
+        </select> 
+        <div id="chartContainer" style="width:fit-content;"></div> 
+        <script> 
+            const xArray = ["Italy","France","Spain","USA","India"]; 
+            const yArray = [55,49,44,24,15]; 
+            function renderChart(type){ 
+                if(type=="bar"){ 
+                    let data=[{ 
+                        x:xArray, 
+                        y:yArray, 
+                        type:"bar", 
+                        orientation:"v",
+                        marker:{color: ["#003F5C", "#2F4B7C", "#665191", "#A05195", "#D45087"]}
+                    }]; 
+                    Plotly.newPlot("chartContainer",data,layout); 
+                } 
+                else if(type=="line"){ 
+                    let data=[{ 
+                        x:xArray, 
+                        y:yArray, 
+                        type:"scatter",
+                        mode:"lines"
+                    }]; 
+                    Plotly.newPlot("chartContainer",data,layout); 
+                } 
+                else if(type=="pie"){ 
+                    let data=[{ 
+                        labels:xArray, 
+                        values:yArray, 
+                        type:"pie",
+                        marker: { colors: ["#003F5C", "#2F4B7C", "#665191", "#A05195", "#D45087"] }  
+                    }]; 
+                    Plotly.newPlot("chartContainer",data,layout); 
+                } 
+                else if(type=="donut"){ 
+                    let data=[{ 
+                        labels:xArray, 
+                        values:yArray, 
+                        type:"pie", 
+                        hole: 0.4,
+                        marker: { colors: ["#003F5C", "#2F4B7C", "#665191", "#A05195", "#D45087"] } 
+                    }]; 
+                    Plotly.newPlot("chartContainer",data,layout); 
+                } 
+            } 
+            const layout = { 
+                xaxis:{title: "Countries"}, 
+                yaxis:{title: "Quantity in Tons"}, 
+                title: "World Wide XXX Production" 
+            }; 
+            document.getElementById("chartType").addEventListener('change',function(){ 
+                let type = document.getElementById("chartType").value; 
+                renderChart(type); 
+            }); 
+            renderChart("bar"); 
+        </script> 
+    </body> 
+</html> 

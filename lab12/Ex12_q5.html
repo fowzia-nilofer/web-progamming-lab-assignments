@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Z-index_23BCE5127</title>
+    <style>
+        .container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border: 2px solid black;
+        }
+        #box1 {
+            position: absolute;
+            background-color: #f64848;
+            width: 150px;
+            height: 150px;
+            top: 20px;
+            left: 20px;
+            opacity: 0.8;
+            z-index: 1;
+        }
+        #box2 {
+            position: absolute;
+            background-color: rgb(110, 110, 239);
+            width: 150px;
+            height: 150px;
+            top: 40px;
+            left: 40px;
+            opacity: 0.8;
+            z-index: 2;
+        }
+        #box3 {
+            position: absolute;
+            background-color: rgb(82, 216, 82);
+            width: 150px;
+            height: 150px;
+            top: 60px;
+            left: 60px;
+            opacity: 0.8;
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box" id="box1">Box 1 (z-index: <span id="z1">1</span>)</div>
+        <div class="box" id="box2">Box 2 (z-index: <span id="z2">2</span>)</div>
+        <div class="box" id="box3">Box 3 (z-index: <span id="z3">3</span>)</div>
+    </div>
+    <br>
+    <div>
+        <label>Box No:</label>
+        <input type="number" id="boxNo" min="1" max="3">
+        <label>Z-index:</label>
+        <input type="number" id="zindex">
+        <button onclick="updateZIndex()">Update Z-index</button>
+    </div>
+    <script>
+        document.querySelectorAll(".box").forEach(box => {
+            box.addEventListener("mouseover", function () {
+                this.style.zIndex = "4";
+            });
+            box.addEventListener("mouseout", function () {
+                this.style.zIndex = "";
+            });
+        });
+        function updateZIndex() {
+            let boxNo = document.getElementById("boxNo").value;
+            let zIndex = document.getElementById("zindex").value;
+            
+            if (boxNo >= 1 && boxNo <= 3 && zIndex !== "") {
+                let box = document.getElementById("box" + boxNo);
+                box.style.zIndex = zIndex;
+                document.getElementById("z" + boxNo).textContent = zIndex;
+            }
+        }
+    </script>
+</body>
+</html>
