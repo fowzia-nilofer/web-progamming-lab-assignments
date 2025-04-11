@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>23BCE5127-Form2</title>
+<style>
+	legend{
+		color: red;
+	}
+	textarea{
+		resize: none;
+	}
+</style>
+</head>
+<body>
+	<form>
+		<fieldset>
+			<legend align="top">Personal Details</legend>
+			<label for="name">Name:</label>
+			<input type="text" name="name" id="name"><br><br>
+			<label for="password">Password:</label>
+			<input type="password" name="password" id="password"><br><br>
+			<label for="email">E-mail id:</label>
+			<input type="email" name="email" id="email"><br><br>
+			<label>Gender:</label>
+			<input type="radio" name="male" id="male">
+			<label for="male">Male</label>
+			<input type="radio" name="female" id="female">
+			<label for="female">Female</label><br><br>
+			<label for="dob">DOB:</label>
+			<input type="date" name="dob" id="dob"><br><br>
+			<label for="mobile">Mobile#:</label>
+			<input type="tel" name="mobile" id="mobile">
+		</fieldset>
+		<fieldset>
+			<legend align="top">Educational Qualification</legend>
+			<label for="dgree">Degree:</label>
+			<select name="dgree" id="degree">
+			<option disabled selected>--Select Group--</option>
+				<optgroup label="UG">
+					<option>BE</option>
+					<option>BTech</option>
+					<option>BSc</option>
+					<option>BA</option>
+					<option>BCA</option>
+					<option>BBA</option>
+					<option>Others</option>
+				</optgroup>
+				<optgroup label="PG">
+					<option>ME</option>
+					<option>MTech</option>
+					<option>MSc</option>
+					<option>MA</option>
+					<option>MCA</option>
+					<option>MBA</option>
+					<option>Others</option>
+				</optgroup>
+				<optgroup label="PhD">
+					<option>Engineering</option>
+					<option>Science</option>
+					<option>Management</option>
+					<option>Others</option>
+				</optgroup>
+			</select>
+			<label for="Engineering">Engineering:</label>
+			<select name="Engineering" id="Engineering">
+				<option disabled selected>--Select Group--</option>
+				<option>CSE</option>
+				<option>ECE</option>
+				<option>EEE</option>
+				<option>CIVIL</option>
+				<option>MTECH</option>
+			</select>
+		</fieldset><br>
+		Hobbies:<input type="checkbox" name="chess" id="chess">
+		<label for="chess">Playing chess</label>
+		<input type="checkbox" name="reading" id="reading">
+		<label for="reading">Reading Books</label><br><br>
+		Favourite Color: <input type="color" name="favcolor"><br><br>
+		<legend for="address">Address</legend><br>
+        <textarea rows="5" cols="80" id="address" name="address"></textarea><br><br>
+		<label for="resume">Attach Resume:</label>
+		<input type="file" name="resume" id="resume">
+		<input type="submit" value="submit">
+	</form>
+</body>
+</html>
