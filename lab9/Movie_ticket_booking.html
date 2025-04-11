@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 60%;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .movie-selection, .seat-selection {
+            margin: 20px 0;
+        }
+        .seat {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            background-color: #ddd;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .seat.selected {
+            background-color: #28a745;
+        }
+        .seat.occupied {
+            background-color: #dc3545;
+            cursor: not-allowed;
+        }
+        .screen {
+            margin: 20px 0;
+            background: #444;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Movie Ticket Booking</h2>
+
+        <div class="movie-selection">
+            <label for="movie">Choose a Movie:</label>
+            <select id="movie">
+                <option value="10">Movie A ($10)</option>
+                <option value="12">Movie B ($12)</option>
+                <option value="15">Movie C ($15)</option>
+            </select>
+        </div>
+
+        <div class="show-time">
+            <label for="showtime">Show Time:</label>
+            <select id="showtime">
+                <option>12:00 PM</option>
+                <option>3:00 PM</option>
+                <option>6:00 PM</option>
+                <option>9:00 PM</option>
+            </select>
+        </div>
+
+        <div class="seat-selection">
+            <div class="screen">Screen</div>
+            <div id="seats"></div>
+        </div>
+
+        <p class="total">Total Price: $<span id="total">0</span></p>
+    </div>
+
+    <script>
+        const seatContainer = document.getElementById("seats");
+        const movieSelect = document.getElementById("movie");
+        const totalElement = document.getElementById("total");
+
+        const rows = 5, cols = 8;
+        let ticketPrice = +movieSelect.value;
+
+        function createSeats() {
+            for (let i = 0; i < rows * cols; i++) {
+                const seat = document.createElement("div");
+                seat.classList.add("seat");
+                if (Math.random() < 0.2) {
+                    seat.classList.add("occupied");
+                }
+                seat.addEventListener("click", () => selectSeat(seat));
+                seatContainer.appendChild(seat);
+            }
+        }
+
+        function selectSeat(seat) {
+            if (!seat.classList.contains("occupied")) {
+                seat.classList.toggle("selected");
+                updateTotal();
+            }
+        }
+
+        function updateTotal() {
+            const selectedSeats = document.querySelectorAll(".seat.selected");
+            totalElement.textContent = selectedSeats.length * ticketPrice;
+        }
+
+        movieSelect.addEventListener("change", (e) => {
+            ticketPrice = +e.target.value;
+            updateTotal();
+        });
+
+        createSeats();
+    </script>
+
+</body>
+</html>

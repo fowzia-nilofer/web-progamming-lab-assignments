@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>23BCE5127_q3</title>
+        <script src="Ex9_3.js"></script>
+    </head>
+    <body>
+        <table border="1" align="center">
+            <tr>
+                <th colspan="2">
+                    <form>
+                        <filedset>
+                            <label for="bmi">BMI Calculator</label>
+                            <select id="bmi">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </filedset>
+                    </form>
+                </th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <form>
+                        <div style="text-align: left; font-weight: bold;">Enter Your Weight:</div>
+                        <label for="pounds">(in pounds)</label>
+                        <input type="text" id="pounds">
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <form>
+                        <div style="text-align: left;font-weight: bold;">Enter Your Height:</div>
+                        <label for="feet">(feet)</label>
+                        <input type="text" id="feet"><br><br>
+                        <label for="inches">(inches)</label>
+                        <input type="text" id="inches">
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <form>
+                        <div style="text-align: center;">
+                            <input type="button" value="Calculate" onclick="calcBMI()">
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <th>YOUR BMI</th>
+                <td>
+                    <form>
+                        <input type="text" id="result">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

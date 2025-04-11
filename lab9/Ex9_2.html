@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE5127_Airline Seat Reservation</title>
+    <style>
+        .seat-occupied {
+            color: red;
+        }
+        .seat-available {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Airline Seat Reservation System</h1>
+    <div class="container">
+        <label for="passengerName">Passenger Name:</label>
+        <input type="text" id="passengerName" placeholder="Enter passenger's name" required>
+
+        <label for="classChoice">Select Class:</label>
+        <select id="classChoice">
+            <option value="1">First Class (Seats 1-5)</option>
+            <option value="2">Economy Class (Seats 6-10)</option>
+        </select>
+
+        <button onclick="assignSeat()">Book Seat</button>
+
+        <div id="boardingPass" class="boarding-pass" style="display: none;"></div>
+        <div id="seatStatus" class="seat-status"></div>
+    </div>
+
+    <script>
+        const seats = Array(10).fill(0); // 0 indicates an empty seat
+
+        function assignSeat() {
+            const passengerName = document.getElementById("passengerName").value.trim();
+            const classChoice = parseInt(document.getElementById("classChoice").value);
+
+            if (passengerName === "") {
+                alert("Please enter the passenger's name.");
+                return;
+            }
+
+            if (classChoice === 1) {
+                if (!allocateSeat(passengerName, 0, 4, "First Class")) {
+                    if (confirm("First Class is full. Would you like to be placed in Economy Class?")) {
+                        allocateSeat(passengerName, 5, 9, "Economy Class");
+                    } else {
+                        alert("Next flight leaves in 3 hours.");
+                    }
+                }
+            } else if (classChoice === 2) {
+                if (!allocateSeat(passengerName, 5, 9, "Economy Class")) {
+                    if (confirm("Economy Class is full. Would you like to be placed in First Class?")) {
+                        allocateSeat(passengerName, 0, 4, "First Class");
+                    } else {
+                        alert("Next flight leaves in 3 hours.");
+                    }
+                }
+            } else {
+                alert("Invalid selection. Please select a class.");
+            }
+
+            updateSeatStatus(); // Update seat availability
+            document.getElementById("passengerName").value = ""; // Clear the input field
+        }
+
+        function allocateSeat(name, start, end, seatClass) {
+            for (let i = start; i <= end; i++) {
+                if (seats[i] === 0) {
+                    seats[i] = 1; // Mark seat as occupied
+                    printBoardingPass(name, i + 1, seatClass);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function printBoardingPass(name, seatNumber, seatClass) {
+            const boardingPass = document.getElementById("boardingPass");
+            boardingPass.style.display = "block";
+            boardingPass.innerHTML = `
+                <h3>---Boarding Pass---</h3>
+                <p><strong>Passenger Name:</strong> ${name}</p>
+                <p><strong>Seat Number:</strong> ${seatNumber}</p>
+                <p><strong>Class:</strong> ${seatClass}</p>
+                <hr>
+            `;
+        }
+
+        function updateSeatStatus() {
+            const seatStatus = document.getElementById("seatStatus");
+            let statusHTML = "<h3>Current Seat Status:</h3><ul>";
+
+            seats.forEach((seat, index) => {
+                statusHTML += `<li>Seat ${index + 1}: 
+                    <span class="${seat === 1 ? 'seat-occupied' : 'seat-available'}">
+                        ${seat === 1 ? "Occupied" : "Available"}
+                    </span>
+                </li>`;
+            });
+
+            statusHTML += "</ul>";
+            seatStatus.innerHTML = statusHTML;
+        }
+
+        // Initialize seat status on page load
+        updateSeatStatus();
+    </script>
+
+</body>
+</html>
