@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>23BCE5127_Ex10_q1</title>
+        
+    </head>
+    <body>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>P-Id</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <br>
+        <button onclick="sortDescending()">Sort data in descending order</button><br><br>
+
+        <label for="pid">Find P-id:</label>
+        <input type="text" id="pid">
+        <button onclick="findPID()">Find</button>
+        <div id="pidOut"></div>
+
+        <label for="filter">Filter the patients by age range:</label>
+        <select id="filter" onchange="filterAge()">
+            <option disabled selected>--Select Range--</option>
+            <option value="1">20-40</option>
+            <option value="2">40-60</option>
+            <option value="3">60-80</option>
+        </select>
+        <div id="filteredRange"></div>
+
+        <script src="Ex10_1.js"></script>
+    </body>
+</html>

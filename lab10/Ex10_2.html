@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>23BCE5127_Ex10_q2</title>
+    </head>
+    <body>
+        <h1 id="title" class="input-field">Original Title</h1>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" value="Fowzia" class="input-field"><br><br>
+        <label for="gender">Male</label>
+        <input type="radio" name="gender" value="Male" onchange="displaySelectedGender()"> 
+        <label for="gender">Female</label>
+        <input type="radio" name="gender" value="Female" onchange="displaySelectedGender()">
+        <p class="info">Original Paragraph</p>
+        <p class="info" id="output"></p>
+        <p class="info" id="pcount"></p>
+        <ul>
+            <li>Mango</li>
+            <li>Banana</li>
+            <li>Strawberry</li>
+            <li>Blueberry</li>
+        </ul>
+        <div id="outputDiv"></div>
+
+        <h2>Select Your Hobbies:</h2>
+        <label><input type="checkbox" class="hobby" value="Reading"> Reading</label><br>
+        <label><input type="checkbox" class="hobby" value="Traveling"> Traveling</label><br>
+        <label><input type="checkbox" class="hobby" value="Gaming"> Gaming</label><br>
+    
+        <h3>Output:</h3>
+        <div id="output"></div>
+        <div id="hobbyOutput"></div>
+
+        <script>
+            let title=document.getElementById("title");
+            title.textContent="Updated Title"
+
+            let userName=document.getElementsByName("username")[0];
+            userName.value="John Doe";
+
+            function displaySelectedGender() {
+                let genderRadios = document.getElementsByName("gender");
+                let output = document.getElementById("output"); 
+
+                let selectedGender = ""; 
+
+                for (let i = 0; i < genderRadios.length; i++) {
+                    if (genderRadios[i].checked) {
+                        selectedGender = genderRadios[i].value; 
+                        break; 
+                    }
+                }
+
+                if (selectedGender !== "") {
+                    output.textContent = "Selected Gender: " + selectedGender;
+                    output.style.color = "green";
+                    output.style.fontWeight = "bold";
+                }
+            }
+
+            p_count = document.getElementsByTagName("p");
+            p_out = document.getElementById("pcount");
+            p_out.textContent = "Total number of <p> elements: "+ p_count.length;
+            
+            const listItems = document.getElementsByTagName("li");
+            for(let i=0;i<listItems.length;i++){
+                console.log(listItems[i].textContent);
+            }
+            
+            const inputFields = document.getElementsByClassName("input-field");
+            for(let i=0;i<inputFields.length;i++){
+                inputFields[i].style.backgroundColor = "lightblue";
+            }
+
+            const infoPara = document.querySelector(".info");
+            infoPara.textContent = "This is the first info paragraph.";
+
+            const firstRadio = document.querySelector('[name="gender"]');
+            if (firstRadio) {
+                firstRadio.checked = true;
+            }
+
+            const checkboxes = document.querySelectorAll(".hobby");
+            const hobbyOutputDiv = document.getElementById("hobbyOutput");
+
+            let checkedHobbies = "<p>Checked hobbies:</p>"; // Store selected hobbies
+
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = true; // Check all checkboxes
+                checkedHobbies += `<p>${checkbox.value}</p>`; // Collect checked values
+            });
+
+            hobbyOutputDiv.innerHTML = checkedHobbies;
+        </script>
+    </body>
+</html>

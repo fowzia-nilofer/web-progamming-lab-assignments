@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Order Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #99a17a; text-align: center; }
+        .container { background: #6b7354; width: 50%; margin: auto; padding: 20px; border-radius: 10px; color: white; }
+        input, select { margin: 5px; padding: 8px; border-radius: 5px; border: none; }
+        .product { display: flex; justify-content: space-between; align-items: center; margin: 10px; }
+        button { background: #b8865f; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Grocery Order Form</h2>
+
+        <label>Customer Name:</label>
+        <input type="text" id="customerName"><br>
+
+        <label>Phone Number:</label>
+        <input type="text" id="phone"><br>
+
+        <label>Email:</label>
+        <input type="email" id="email"><br>
+
+        <h3>Products</h3>
+        <div class="product">
+            <input type="checkbox" class="product-check" data-price="10" id="apple">
+            <label for="apple">Apple ($10/kg)</label>
+            <input type="number" class="quantity" id="apple-qty" min="1" max="10" value="1">
+        </div>
+
+        <div class="product">
+            <input type="checkbox" class="product-check" data-price="5" id="banana">
+            <label for="banana">Banana ($5/kg)</label>
+            <input type="number" class="quantity" id="banana-qty" min="1" max="10" value="1">
+        </div>
+
+        <div class="product">
+            <input type="checkbox" class="product-check" data-price="7" id="avocado">
+            <label for="avocado">Avocado ($7/kg)</label>
+            <input type="number" class="quantity" id="avocado-qty" min="1" max="10" value="1">
+        </div>
+
+        <button onclick="submitOrder()">SUBMIT</button>
+    </div>
+
+    <script>
+        function submitOrder() {
+            let name = document.getElementById("customerName").value;
+            let phone = document.getElementById("phone").value;
+            let email = document.getElementById("email").value;
+
+            let products = [];
+            document.querySelectorAll(".product-check").forEach(item => {
+                if (item.checked) {
+                    let quantity = document.getElementById(item.id + "-qty").value;
+                    products.push({ name: item.id, price: item.getAttribute("data-price"), quantity: quantity });
+                }
+            });
+
+            if (name === "" || phone === "" || email === "" || products.length === 0) {
+                alert("Please fill all details and select at least one product.");
+                return;
+            }
+
+            let orderData = { name, phone, email, products };
+            localStorage.setItem("orderData", JSON.stringify(orderData));
+
+            window.location.href = "receipt.html";
+        }
+    </script>
+
+</body>
+</html>

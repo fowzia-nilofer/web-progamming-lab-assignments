@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Selection Example</title>
+</head>
+<body>
+
+    <!-- (a) Using getElementById -->
+    <h1 id="title">Original Title</h1>
+
+    <!-- (b) Using getElementsByName -->
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" value="Fowzia" class="input-field"><br><br>
+
+    <label>Male</label>
+    <input type="radio" name="gender" value="Male">
+    <label>Female</label>
+    <input type="radio" name="gender" value="Female">
+
+    <!-- (c) Using getElementsByTagName -->
+    <p class="info">Paragraph 1</p>
+    <p class="info">Paragraph 2</p>
+    <p class="info">Paragraph 3</p>
+
+    <ul>
+        <li>Mango</li>
+        <li>Banana</li>
+        <li>Strawberry</li>
+        <li>Blueberry</li>
+    </ul>
+
+    <!-- (f) Using querySelectorAll for Checkboxes -->
+    <h3>Select Your Hobbies:</h3>
+    <label><input type="checkbox" class="hobby" value="Reading"> Reading</label><br>
+    <label><input type="checkbox" class="hobby" value="Traveling"> Traveling</label><br>
+    <label><input type="checkbox" class="hobby" value="Gaming"> Gaming</label><br>
+
+    <h3>Output:</h3>
+    <div id="output"></div>
+    <div id="hobbyOutput"></div>
+
+    <script>
+        // (a) Using getElementById: Change <h1> text
+        let title = document.getElementById("title");
+        title.textContent = "Updated Title";
+
+        // (b) Using getElementsByName:
+        // Set username field value
+        let userName = document.getElementsByName("username")[0];
+        userName.value = "John Doe";
+
+        // Get selected radio button
+        function getSelectedGender() {
+            let genderRadios = document.getElementsByName("gender");
+            for (let i = 0; i < genderRadios.length; i++) {
+                if (genderRadios[i].checked) {
+                    console.log("Selected Gender:", genderRadios[i].value);
+                    return;
+                }
+            }
+            console.log("No gender selected.");
+        }
+
+        // (c) Using getElementsByTagName:
+        // Count and print total number of <p> elements
+        let pElements = document.getElementsByTagName("p");
+        console.log("Total <p> elements:", pElements.length);
+
+        // Print text content of all <li> elements inside <ul>
+        let listItems = document.getElementsByTagName("li");
+        for (let i = 0; i < listItems.length; i++) {
+            console.log("List item:", listItems[i].textContent);
+        }
+
+        // (d) Using getElementsByClassName:
+        // Change background color of all elements with class "input-field"
+        let inputFields = document.getElementsByClassName("input-field");
+        for (let i = 0; i < inputFields.length; i++) {
+            inputFields[i].style.backgroundColor = "lightblue";
+        }
+
+        // (e) Using querySelector:
+        // Update the first <p> with class "info"
+        let firstInfoPara = document.querySelector(".info");
+        firstInfoPara.textContent = "This is the first info paragraph.";
+
+        // Select and check the first radio button with name="gender"
+        let firstRadio = document.querySelector('[name="gender"]');
+        if (firstRadio) {
+            firstRadio.checked = true;
+        }
+
+        // (f) Using querySelectorAll:
+        // Select all <p> elements with class "info" and print their text
+        let infoParagraphs = document.querySelectorAll(".info");
+        infoParagraphs.forEach(p => console.log("Paragraph text:", p.textContent));
+
+        // Select all checkboxes with class "hobby", check them, and print values
+        let checkboxes = document.querySelectorAll(".hobby");
+        let hobbyOutputDiv = document.getElementById("hobbyOutput");
+
+        let checkedHobbies = "<p>Checked hobbies:</p>";
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = true; // Set checkbox as checked
+            checkedHobbies += `<p>${checkbox.value}</p>`; // Collect values
+        });
+
+        hobbyOutputDiv.innerHTML = checkedHobbies;
+    </script>
+
+</body>
+</html>

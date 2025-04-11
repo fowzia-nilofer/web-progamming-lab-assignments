@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Receipt</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; }
+        .receipt-container { background: white; width: 50%; margin: auto; padding: 20px; border-radius: 10px; }
+        .total { font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="receipt-container">
+        <h2>Order Receipt</h2>
+        <p id="customerInfo"></p>
+        <h3>Ordered Products</h3>
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity (kg)</th>
+                    <th>Price ($)</th>
+                    <th>Total ($)</th>
+                </tr>
+            </thead>
+            <tbody id="orderDetails"></tbody>
+        </table>
+        <p class="total" id="totalAmount"></p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            let orderData = localStorage.getItem("orderData");
+            if (!orderData) {
+                document.body.innerHTML = "<h2>No order found.</h2>";
+                return;
+            }
+
+            let order = JSON.parse(orderData);
+
+            document.getElementById("customerInfo").innerHTML = 
+                `<strong>Name:</strong> ${order.name} <br>
+                 <strong>Phone:</strong> ${order.phone} <br>
+                 <strong>Email:</strong> ${order.email}`;
+
+            let totalCost = 0;
+            let orderTable = document.getElementById("orderDetails");
+
+            order.products.forEach(product => {
+                let cost = product.quantity * product.price;
+                totalCost += cost;
+
+                orderTable.innerHTML += `
+                    <tr>
+                        <td>${product.name}</td>
+                        <td>${product.quantity}</td>
+                        <td>$${product.price}</td>
+                        <td>$${cost}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("totalAmount").innerText = `Total Amount: $${totalCost}`;
+        };
+    </script>
+
+</body>
+</html>
