@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>23BCE5127-Favorite Singer</title>
+    <style>
+		.myphto {
+			width: 150px;
+			height: 150px;
+			border: 2px solid #ff6347; /* Use your favorite color, for example, tomato */
+			border-radius: 50%; /* Round the image into a circle */
+			transition: all 0.5s ease;
+		}
+		.image-container {
+            text-align: center; /* Centers the content horizontally */
+            margin-top: 20px; /* Adds space at the top */
+        }
+		.myphto:hover {
+			filter: brightness(1.2);
+			box-shadow: 0 0 10px rgba(255, 99, 71, 0.7); /* Adds glow effect on hover */
+		}
+		.image-container .title {
+            font-family: 'Arial', sans-serif; /* Sets the font of the title text to Arial, with a fallback to sans-serif */
+            font-size: 16px; /* Sets the initial font size of the title to 16px */
+            color: #ff6347; /* Sets the initial color of the title text to tomato */
+            text-align: center; /* Centers the title text */
+            margin-top: 10px; /* Adds a 10px margin at the top, so the title doesn't touch the image */
+            animation: color-change 3s infinite; /* Applies the color-change animation every 3 seconds infinitely */
+        }
+		@keyframes color-change {
+            0% {
+                color: #ff6347; /* Initial color: tomato */
+                font-size: 16px; /* Initial font size: 16px */
+            }
+            50% {
+                color: #8a2be2; /* Midpoint color: blue-violet */
+                font-size: 20px; /* Midpoint font size: 20px */
+            }
+            100% {
+                color: #32cd32; /* Final color: lime green */
+                font-size: 24px; /* Final font size: 24px */
+            }
+        }
+	</style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="Fav_singer_1.jpg" alt="Favorite Singer" class="myphto" title="My Favorite Singer">
+		<div class="title">My Favourite Singer</div>
+    </div>
+</body>
+</html>
