@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ex11_q3_23BCE5127</title>
+        <style>
+            span{
+                color:red;
+            }
+            .form-group{
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            label {
+                width: 150px;  /* Fixed width for labels */
+                text-align: left; 
+            }
+            .header {
+                display: flex;
+                justify-content: space-between; /* Pushes items to opposite ends */
+                align-items: center;
+                width: 100%; /* Ensures full width */
+            }
+            #time{
+                font-size: 20px;
+            }
+            .pan-container{
+                margin-left: 120px;
+            }
+        </style>
+    </head>
+    <body>
+        <form>
+            <div class="header">
+                <h2>Test JavaScript Form Validation</h2>
+                <div id="time">Time: <span id="currentTime"></span></div>
+            </div>
+            <div class="form-group">
+                <label for="name">Name<span>*</span></label>
+                <input type="text" id="name">
+                <span id="nameError"></span>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address">
+            </div>
+            <div class="form-group">
+                <label for="zipcode">Zip Code<span>*</span></label>
+                <input type="text" id="zipcode">
+                <span id="zipError"></span>
+            </div>
+            <div class="form-group">
+                <label for="country">Country<span>*</span></label>
+                <select id="country">
+                    <option disabled selected>Please select</option>
+                    <option>India</option>
+                    <option>USA</option>
+                    <option>UK</option>
+                </select>
+                <span id="countryError"></span>
+            </div>
+            <div class="form-group">
+                <label>Gender<span>*</span></label>
+                <div>
+                    <input type="radio" id="male" name="gender" value="Male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="Female">
+                    <label for="female">Female</label>
+                    <span id="genderError"></span>
+                </div>
+                <div class="pan-container">
+                    <label for="pan">PAN No<span>*</span></label>
+                    <input type="text" id="pan">
+                    <span id="panError"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Preferences<span>*</span></label>
+                <div>
+                    <input type="checkbox" id="red" name="preference" value="Red">
+                    <label for="red">Red</label>
+                    <input type="checkbox" id="green" name="preference" value="Green">
+                    <label for="green">Green</label>
+                    <input type="checkbox" id="blue" name="preference" value="Blue">
+                    <label for="blue">Blue</label>
+                    <span id="prefError"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone<span>*</span></label>
+                <input type="tel" id="phone">
+                <span id="phoneError"></span>
+            </div>
+            <div class="form-group">
+                <label for="mail">Email<span>*</span></label>
+                <input type="email" id="mail">
+                <span id="emailError"></span>
+            </div>
+            <div class="form-group">
+                <label for="pass">Password (6 to 8 character)<span>*</span></label>
+                <input type="password" id="pass">
+                <span id="passError"></span>
+            </div>
+            <div class="form-group">
+                <label for="verifyPass">Verify password<span>*</span></label>
+                <input type="password" id="verifyPass">
+                <span id="verifypassError"></span>
+            </div>
+            <div class="form-group">
+                <label></label>
+                <input type="button" value="SEND" style="margin-right: 10px;" onclick="validateForm()">
+                <input type="button" value="CLEAR" onclick="clearForm()">
+            </div>
+
+            <div id="output"></div>
+        </form>
+        <script>
+            // Update current time
+            function updateTime() {
+                let now = new Date();
+                document.getElementById("currentTime").innerText = now.toLocaleTimeString();
+            }
+            setInterval(updateTime, 1000);
+            updateTime(); // Call immediately
+
+            function validateName(){
+                let name = document.getElementById("name").value.trim();
+                let error = document.getElementById("nameError");
+
+                if(name === ""){
+                    error.textContent = "Please enter your name!";
+                }
+                else if(name.length > 15) {
+                    error.textContent = "Name should not exceed 15 characters!";
+                }
+                else{
+                    error.textContent = "";
+                }
+            }
+            function validateZipcode(){
+                let zipcode = document.getElementById("zipcode").value.trim();
+                let error = document.getElementById("zipError");
+
+                if(zipcode === ""){
+                    error.textContent = "Zip code is required!";
+                }
+                else if(!/^\d+$/.test(zipcode)){
+                    error.textContent = "Enter valid zip code!";
+                }
+                else{
+                    error.textContent = "";
+                }
+            }
+            function validatePhone(){
+                let phone = document.getElementById("phone").value.trim();
+                let error = document.getElementById("phoneError");
+
+                if(phone === ""){
+                    error.textContent = "Phone number is required!";
+                }
+                else if(!/^\d{10}$/.test(phone)){
+                    error.textContent = "Enter valid phone number!";
+                }
+                else{
+                    error.textContent = "";
+                }
+            }
+            function validateEmail() {
+                let email = document.getElementById("mail").value.trim();
+                let error = document.getElementById("emailError");
+                let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+                if (email === "") {
+                    error.textContent = "Email is required!";
+                } else if (!emailPattern.test(email)) {
+                    error.textContent = "Enter a valid email address!";
+                } else {
+                    error.textContent = "";
+                }
+            }
+            function validatePassword() {
+                let password = document.getElementById("pass").value;
+                let error = document.getElementById("passError");
+                let passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+
+                if (password === "") {
+                    error.textContent = "Password is required!";
+                } else if (!passwordPattern.test(password)) {
+                    error.textContent = "Password must be 8-15 characters with a letter, number, and special character!";
+                } else {
+                    error.textContent = "";
+                }
+            }
+            function validateVerifyPassword() {
+                let password = document.getElementById("pass").value;
+                let verifyPass = document.getElementById("verifyPass").value;
+                let error = document.getElementById("verifypassError");
+
+                if (verifyPass === "") {
+                    error.textContent = "Please verify your password!";
+                } else if (password !== verifyPass) {
+                    error.textContent = "Passwords do not match!";
+                } else {
+                    error.textContent = "";
+                }
+            }
+            function validatePAN() {
+                let pan = document.getElementById("pan").value.trim();
+                let error = document.getElementById("panError");
+                let panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+
+                if (pan === "") {
+                    error.textContent = "PAN Card number is required!";
+                } else if (!panPattern.test(pan)) {
+                    error.textContent = "Enter a valid PAN (e.g., ABCDE1234F)!";
+                } else {
+                    error.textContent = "";
+                }
+            }
+            function validateCountry(){
+                let country = document.getElementById("country").value;
+                let error = document.getElementById("countryError");
+                if(country === "Please select"){
+                    error.textContent = "Country is required!";
+                }
+                else{
+                    error.textContent = "";
+                }
+            }
+            function validateGender() {
+                let genderOptions = document.getElementsByName("gender"); // Get radio buttons
+                let error = document.getElementById("genderError"); 
+                let selected = false;
+
+                // Loop through radio buttons to check if any is selected
+                for (let option of genderOptions) {
+                    if (option.checked) {
+                        selected = true;
+                        break;
+                    }
+                }
+
+                if (!selected) {
+                    error.textContent = "Please select a gender!";
+                } else {
+                    error.textContent = ""; // Clear error if valid
+                }
+            }
+            function validatePref() {
+                let preferences = document.getElementsByName("preference"); // Get checkboxes
+                let error = document.getElementById("prefError"); 
+                let selected = false;
+
+                // Loop through checkboxes to check if at least one is selected
+                for (let pref of preferences) {
+                    if (pref.checked) {
+                        selected = true;
+                        break;
+                    }
+                }
+
+                if (!selected) {
+                    error.textContent = "Please select at least one preference!";
+                } else {
+                    error.textContent = ""; // Clear error if valid
+                }
+            }
+
+            document.getElementById("name").onblur = validateName;
+            document.getElementById("zipcode").onblur = validateZipcode;
+            document.getElementById("phone").onblur = validatePhone;
+            document.getElementById("mail").onblur = validateEmail;
+            document.getElementById("pass").onblur = validatePassword;
+            document.getElementById("verifyPass").onblur = validateVerifyPassword;
+            document.getElementById("pan").onblur = validatePAN;
+
+            function validateForm(){
+                let isValid = false;
+                validateName();
+                validateZipcode();
+                validatePhone();
+                validateEmail();
+                validatePassword();
+                validateVerifyPassword();
+                validatePAN();
+                validateCountry();
+                validateGender();
+                validatePref();
+
+                document.querySelectorAll("span").forEach(span => {
+                    if (span.textContent !== "" || span.textContent=="*") {
+                        isValid = true;
+                    }
+                });
+
+                if (isValid) {
+                    printFormData(); // Only prints if everything is valid
+                } else {
+                    document.getElementById("output").innerHTML = "<p style='color:red;'>Please fill all required fields correctly!</p>";
+                }
+            }
+            function printFormData() {
+                let name = document.getElementById("name").value;
+                let address = document.getElementById("address").value;
+                let zipcode = document.getElementById("zipcode").value;
+                let country = document.getElementById("country").value;
+                let phone = document.getElementById("phone").value;
+                let email = document.getElementById("mail").value;
+                let pan = document.getElementById("pan").value;
+                let password = document.getElementById("pass").value;
+
+                // Get selected gender
+                let gender = document.querySelector("input[name='gender']:checked").value;
+
+                // Get selected preferences
+                let preferences = [];
+                document.querySelectorAll("input[name='preference']:checked").forEach(pref => {
+                    preferences.push(pref.value);
+                });
+
+                let output = `
+                    <h3>Form Details:</h3>
+                    <p><strong>Name:</strong> ${name}</p>
+                    <p><strong>Address:</strong> ${address}</p>
+                    <p><strong>Zip Code:</strong> ${zipcode}</p>
+                    <p><strong>Country:</strong> ${country}</p>
+                    <p><strong>Phone:</strong> ${phone}</p>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>PAN:</strong> ${pan}</p>
+                    <p><strong>Password:</strong> ${"*".repeat(password.length)}</p>
+                    <p><strong>Gender:</strong> ${gender}</p>
+                    <p><strong>Preferences:</strong> ${preferences.join(", ")}</p>
+                `;
+                document.getElementById("output").innerHTML = output;
+            }
+            function clearForm() {
+                // Reset the form fields
+                document.querySelector("form").reset();
+
+                // Clear all error messages
+                document.querySelectorAll("span").forEach(span => {
+                    span.textContent = "";
+                });
+
+                // Clear the output div
+                document.getElementById("output").innerHTML = "";
+            }
+        </script>
+    </body>
+</html>

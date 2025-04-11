@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ex11_q2_23BCE5127</title>
+        <style>
+            #display{
+                margin-top:0;
+                font-size:40px;
+                font-weight:bold;
+                color:white;
+                background-color: black;
+                display: inline-block;
+                padding: 20px;
+                border-radius: 10px;
+            }
+            #start, #stop, #reset{
+                background-color:white;
+            }
+        </style>
+    </head>
+    <body>
+        <h3>STOP WATCH</h3>
+        <p id="display">00:00:00</p>
+        <div class="buttons">
+            <input type="button" value="start" id="start">
+            <input type="button" value="stop" id="stop">
+            <input type="button" value="reset" id="reset">
+        </div>
+        <br><br>
+        <div>
+            <h4>Enter your Date of Birth and Hover over input to see you age!</h4>
+            <input type="date" id="dob">
+            <p id="displayAge"></p>
+        </div>
+        <br>
+        <div>
+            <input type="text" id="keyInput" placeholder="Press any key">
+            <p id="keyCounter">Key Pressed: 0</p>
+        </div>
+        <script>
+
+            let timer;
+            let hours=0,minutes=0,seconds=0;
+            let running=false;
+
+            function updateDisplay(){
+                let formattedTimer = ((hours<10)?"0":"") + hours + ":" +
+                                        ((minutes<10)?"0":"") + minutes + ":" +
+                                            ((seconds<10)?"0":"") + seconds;
+
+                document.getElementById("display").innerText = formattedTimer;
+            }
+
+            function startStopWatch(){
+                if(!running){
+                    running = true;
+                    timer = setInterval(() =>{
+                        seconds++;
+                        if (seconds === 60) { seconds = 0; minutes++; }
+                        if (minutes === 60) { minutes = 0; hours++; }
+                        updateDisplay();
+                    },1000);
+                }
+            }
+
+            function stopStopWatch(){
+                clearInterval(timer);
+                running = false;
+            }
+
+            function resetStopWatch(){
+                clearInterval(timer);
+                running = false;
+                seconds = 0; minutes = 0; hours = 0;
+                updateDisplay();
+            }
+
+            document.getElementById("start").addEventListener('click', startStopWatch);
+            document.getElementById("stop").addEventListener('click', stopStopWatch);
+            document.getElementById("reset").addEventListener('click', resetStopWatch);
+
+            document.getElementById("dob").addEventListener("mouseover",function(){
+                let dob = new Date(this.value);
+                let today = new Date();
+                let age = today.getFullYear() - dob.getFullYear();
+                let monthDiff = today.getMonth() - dob.getMonth();
+                let dayDiff = today.getDate() - dob.getDate();
+
+                if(monthDiff<0 || (monthDiff==0 && dayDiff<0)){
+                    age--;
+                }
+                document.getElementById("displayAge").innerText = "Age:"+age;
+            });
+
+            let keyPressCounter = 0;
+            let keyInputField = document.getElementById('keyInput');
+            let keyCounterDisplay = document.getElementById('keyCounter');
+            keyInputField.addEventListener('keypress', function () {
+                keyPressCounter++;
+                keyCounterDisplay.textContent = 'Key Pressed: ' + keyPressCounter;
+            });
+        </script>
+    </body>
+</html>

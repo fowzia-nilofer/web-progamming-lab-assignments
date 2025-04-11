@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ex11_q1_23BCE5127</title>
+</head>
+<body>
+    <p id="dynamic table">Dynamic Table</p>
+    <p id="button"></p>
+    <p id="textbox">Textbox:</p>
+    <div id="message"></div>
+    <ul id="ul">
+        <li>Oranges</li>
+        <li>Mangoes</li>
+        <li>Strawberry</li>
+    </ul>
+    <p id="inputfield">Add Fruits to the list:</p>
+    <p id="b"></p>
+    <div>
+        <input type="text" id="keyInput" placeholder="Press any key">
+        <p id="keyCounter">Key Pressed: 0</p>
+    </div>
+    <script>
+        let table = document.createElement("table");
+        table.border = "1";
+        let row1 = table.insertRow();
+        let cell11 = row1.insertCell(0);
+        let cell12 = row1.insertCell(1);
+        let cell13 = row1.insertCell(2);
+        cell11.textContent = "Name";
+        cell12.textContent = "Age";
+        cell13.textContent = "Gender";
+        let row2 = table.insertRow();
+        let cell21 = row2.insertCell(0);
+        let cell22 = row2.insertCell(1);
+        let cell23 = row2.insertCell(2);
+        cell21.textContent = "n1";
+        cell22.textContent = "a1";
+        cell23.textContent = "g1";
+        let row3 = table.insertRow();
+        let cell31 = row3.insertCell(0);
+        let cell32 = row3.insertCell(1);
+        let cell33 = row3.insertCell(2);
+        cell31.textContent = "n2";
+        cell32.textContent = "a2";
+        cell33.textContent = "g2";
+        document.getElementById("dynamic table").appendChild(table);
+        let button = document.createElement('button');
+        button.textContent = "Hover over me!";
+        button.style.backgroundColor = 'red';
+        button.addEventListener('mouseover', function () {
+            button.style.backgroundColor = 'green';
+        });
+        button.addEventListener('mouseout', function () {
+            button.style.backgroundColor = 'red';
+        })
+        document.getElementById("button").appendChild(button);
+        let textbox = document.createElement('input');
+        textbox.type = 'text';
+        textbox.style.backgroundColor = 'green';
+        textbox.addEventListener('focus', function () {
+            textbox.style.backgroundColor = 'yellow';
+        });
+        textbox.addEventListener('change', function () {
+            document.getElementById("message").innerHTML = `<p>Hello! You have changed textbox</p>`;
+        });
+        document.getElementById("textbox").appendChild(textbox);
+        let inputfield = document.createElement('input');
+        inputfield.type = 'text';
+        let ul = document.getElementById("ul");
+        let b = document.createElement('button');
+        b.textContent = "Add";
+        b.addEventListener('dblclick', function () {
+            let newItem = document.createElement('li');
+            newItem.textContent = inputfield.value;
+            ul.appendChild(newItem);
+        });
+        document.getElementById("inputfield").appendChild(inputfield);
+        document.getElementById("b").appendChild(b);
+        let keyPressCounter = 0;
+        let keyInputField = document.getElementById('keyInput');
+        let keyCounterDisplay = document.getElementById('keyCounter');
+        keyInputField.addEventListener('keypress', function () {
+            keyPressCounter++;
+            keyCounterDisplay.textContent = 'Key Pressed: ' + keyPressCounter;
+        });
+    </script>
+</body>
+</html>
